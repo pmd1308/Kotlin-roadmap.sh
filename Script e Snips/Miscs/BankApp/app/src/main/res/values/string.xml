@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- values/strings.xml -->
+<!-- Strings for various UI components in the app -->
+
+<resources>
+    <string name="app_name">BankApp</string>
+    <string name="login_button">Login</string>
+    <string name="username_hint">Username</string>
+    <string name="password_hint">Password</string>
+    <string name="dashboard_welcome_message">Welcome, %1$s!</string>
+    <string name="generate_csv_button">Generate CSV</string>
+    <string name="logout_button">Logout</string>
+    <string name="csv_generation_success">CSV file generated successfully.</string>
+    <string name="csv_generation_failure">Failed to generate CSV file.</string>
+    <string name="login_failure">Invalid username or password.</string>
+    <string name="login_error">Failed to login.</string>
+</resources>
