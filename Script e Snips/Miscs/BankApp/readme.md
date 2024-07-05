@@ -31,25 +31,25 @@ A estrutura de diretórios do projeto é organizada da seguinte forma:
 classDiagram
     %% Pacote de Autenticação
     class LoginActivity {
-        +editTextUsername: EditText
-        +editTextPassword: EditText
-        +buttonLogin: Button
-        +loginViewModel: LoginViewModel
-        +onCreate(savedInstanceState: Bundle): Unit
-        +onLoginButtonClick(): Unit
+        +EditText editTextUsername
+        +EditText editTextPassword
+        +Button buttonLogin
+        +LoginViewModel loginViewModel
+        +Unit onCreate(Bundle savedInstanceState)
+        +Unit onLoginButtonClick()
     }
 
     class LoginViewModel {
-        +login(username: String, password: String): Unit
-        -userRepository: UserRepository
+        +Unit login(String username, String password)
+        -UserRepository userRepository
     }
 
     class AuthenticationService {
-        +authenticate(username: String, password: String): UserDTO
+        +UserDTO authenticate(String username, String password)
     }
 
     class UserRepository {
-        +findUserByUsername(username: String): UserDTO
+        +UserDTO findUserByUsername(String username)
     }
 
     LoginActivity --> LoginViewModel : uses
@@ -58,31 +58,31 @@ classDiagram
 
     %% Pacote de Dashboard
     class DashboardActivity {
-        +textViewUserInfo: TextView
-        +buttonGenerateCSV: Button
-        +buttonLogout: Button
-        +dashboardViewModel: DashboardViewModel
-        +onCreate(savedInstanceState: Bundle): Unit
-        +onGenerateCSVButtonClick(): Unit
-        +onLogoutButtonClick(): Unit
+        +TextView textViewUserInfo
+        +Button buttonGenerateCSV
+        +Button buttonLogout
+        +DashboardViewModel dashboardViewModel
+        +Unit onCreate(Bundle savedInstanceState)
+        +Unit onGenerateCSVButtonClick()
+        +Unit onLogoutButtonClick()
     }
 
     class DashboardViewModel {
-        +generateCSV(): Unit
-        -dashboardService: DashboardService
+        +Unit generateCSV()
+        -DashboardService dashboardService
     }
 
     class DashboardService {
-        +fetchTransactionData(): List<CSVDataDTO>
-        +generateCSV(data: List<CSVDataDTO>, path: String): Unit
+        +List<CSVDataDTO> fetchTransactionData()
+        +Unit generateCSV(List<CSVDataDTO> data, String path)
     }
 
     class CSVGenerator {
-        +writeCSV(data: List<CSVDataDTO>, path: String): Unit
+        +Unit writeCSV(List<CSVDataDTO> data, String path)
     }
 
     class CSVRepository {
-        +saveCSVFile(path: String, data: List<CSVDataDTO>): Unit
+        +Unit saveCSVFile(String path, List<CSVDataDTO> data)
     }
 
     DashboardActivity --> DashboardViewModel : uses
@@ -92,18 +92,18 @@ classDiagram
 
     %% Pacote de Exceções
     class CustomException {
-        +message: String
-        +CustomException(message: String): Unit
+        +String message
+        +CustomException(String message)
     }
 
     class DatabaseException {
-        +message: String
-        +DatabaseException(message: String): Unit
+        +String message
+        +DatabaseException(String message)
     }
 
     class CSVGenerationException {
-        +message: String
-        +CSVGenerationException(message: String): Unit
+        +String message
+        +CSVGenerationException(String message)
     }
 
     CustomException --|> Exception
@@ -112,56 +112,39 @@ classDiagram
 
     %% Pacote de Utilitários
     class CSVUtils {
-        +parseCSV(filePath: String): List<CSVDataDTO>
-        +convertToDTO(resultSet: ResultSet): List<CSVDataDTO>
+        +List<CSVDataDTO> parseCSV(String filePath)
+        +List<CSVDataDTO> convertToDTO(ResultSet resultSet)
     }
 
     class EnvironmentConfig {
-        +getDatabaseUrl(): String
-        +getDatabaseUser(): String
-        +getDatabasePassword(): String
-        +getCSVFilePath(): String
+        +String getDatabaseUrl()
+        +String getDatabaseUser()
+        +String getDatabasePassword()
+        +String getCSVFilePath()
     }
-
-    CSVUtils : +parseCSV(filePath: String): List<CSVDataDTO>
-    CSVUtils : +convertToDTO(resultSet: ResultSet): List<CSVDataDTO>
-    EnvironmentConfig : +getDatabaseUrl(): String
-    EnvironmentConfig : +getDatabaseUser(): String
-    EnvironmentConfig : +getDatabasePassword(): String
-    EnvironmentConfig : +getCSVFilePath(): String
 
     %% Pacote de Modelos
     class UserDTO {
-        +username: String
-        +password: String
+        +String username
+        +String password
     }
 
     class CSVDataDTO {
-        +date: String
-        +description: String
-        +amount: Double
+        +String date
+        +String description
+        +Double amount
     }
-
-    UserDTO : +username: String
-    UserDTO : +password: String
-    CSVDataDTO : +date: String
-    CSVDataDTO : +description: String
-    CSVDataDTO : +amount: Double
 
     %% Pacote de Configuração
     class AppConfig {
-        +loadConfig(): Unit
+        +Unit loadConfig()
     }
 
-    AppConfig : +loadConfig(): Unit
-
-    %% Associações
     CSVUtils -- CSVDataDTO : parses
     UserDTO --|> CSVDataDTO : shares data
     CSVGenerator --|> CSVDataDTO : writes
     CSVRepository --|> CSVGenerator : stores
     EnvironmentConfig --|> AppConfig : retrieves settings
     AppConfig --|> EnvironmentConfig : uses
-
 ```
 
